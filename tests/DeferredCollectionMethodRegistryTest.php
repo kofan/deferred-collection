@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace DeferredCollection;
 
 use DeferredCollection\TestUtils\ProcessorFactory;
@@ -8,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class DeferredCollectionMethodRegistryTest extends TestCase
 {
-    public function testCanRegisterNewProcessor() : void
+    public function testCanRegisterNewProcessor(): void
     {
         $processorClassName = ProcessorFactory::createDummyProcessorClass();
         $processorMethodName = ProcessorFactory::createProcessorMethodName();
@@ -19,7 +21,7 @@ class DeferredCollectionMethodRegistryTest extends TestCase
         $this->assertSame($processorClassName, $foundClassName);
     }
 
-    public function testCanUnregisterExistingProcessor() : void
+    public function testCanUnregisterExistingProcessor(): void
     {
         $processorClassName = ProcessorFactory::createDummyProcessorClass();
         $processorMethodName = ProcessorFactory::createProcessorMethodName();
@@ -30,16 +32,19 @@ class DeferredCollectionMethodRegistryTest extends TestCase
         $this->assertTrue($unregisterResult);
     }
 
-    public function testCanAttemptToUnregisterUnexistingProcessor() : void
+    public function testCanAttemptToUnregisterUnexistingProcessor(): void
     {
         $unexistingProcessorName = '[[unexisting_processor]]';
         $unregisterResult = DeferredCollectionMethodRegistry::unregister($unexistingProcessorName);
         $this->assertFalse($unregisterResult);
     }
 
-    public function testCannotRegisterProcessorWhichDoesNotImplementInterface() : void
+    public function testCannotRegisterProcessorWhichDoesNotImplementInterface(): void
     {
-        $processorClassName = get_class(new class {});
+        $anonymousObject = new class() {
+            /* this class does not implements ProcessorInterface */
+        };
+        $processorClassName = get_class($anonymousObject);
         $processorMethodName = ProcessorFactory::createProcessorMethodName();
 
         $this->expectException(InvalidArgumentException::class);

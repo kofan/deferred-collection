@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace DeferredCollection\TestUtils;
 
 use DeferredCollection\Processor\ProcessorInterface;
@@ -19,12 +21,12 @@ class DelegatingProcessor implements ProcessorInterface
         $this->isSingleValue = $isSingleValue;
     }
 
-    public function isSingleValue() : bool
+    public function isSingleValue(): bool
     {
         return $this->isSingleValue;
     }
 
-    public function process(iterable $iterable) : iterable
+    public function process(iterable $iterable): iterable
     {
         return ($this->callback)($iterable);
     }

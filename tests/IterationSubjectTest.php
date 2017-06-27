@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace DeferredCollection;
 
 use ArgumentCountError;
@@ -8,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class IterationSubjectTest extends TestCase
 {
-    public function testCannotCreateWithoutArguments() : void
+    public function testCannotCreateWithoutArguments(): void
     {
         $this->expectException(ArgumentCountError::class);
         new IterationSubject();
@@ -20,13 +22,13 @@ class IterationSubjectTest extends TestCase
         new IterationSubject(null);
     }
 
-    public function testCannotCreateWithNonIterableAndNonCallable() : void
+    public function testCannotCreateWithNonIterableAndNonCallable(): void
     {
         $this->expectException(InvalidArgumentException::class);
         new IterationSubject('just a string');
     }
 
-    public function testCanWorkWithIterable() : void
+    public function testCanWorkWithIterable(): void
     {
         $iterable = [1, 2, 3];
         $iterationSubject = new IterationSubject($iterable);
@@ -35,19 +37,23 @@ class IterationSubjectTest extends TestCase
         $this->assertSame($iterationSubject->getIterable(), $iterable);
     }
 
-    public function testCanWorkWithCallable() : void
+    public function testCanWorkWithCallable(): void
     {
         $iterable = [1, 2, 3];
-        $callable = function () use ($iterable) { return $iterable; };
+        $callable = function () use ($iterable) {
+            return $iterable;
+        };
         $iterationSubject = new IterationSubject($callable);
 
         $this->assertSame($iterationSubject->getSubject(), $callable);
         $this->assertSame($iterationSubject->getIterable(), $iterable);
     }
 
-    public function testDoesNotWorkWithCallableWhichIsNotReturningIterable() : void
+    public function testDoesNotWorkWithCallableWhichIsNotReturningIterable(): void
     {
-        $callable = function () { return 100; };
+        $callable = function () {
+            return 100;
+        };
         $iterationSubject = new IterationSubject($callable);
 
         $this->expectException(InvalidArgumentException::class);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace DeferredCollection\Processor;
 
 class ReduceProcessor extends AbstractSingleValueProcessor
@@ -11,7 +13,7 @@ class ReduceProcessor extends AbstractSingleValueProcessor
     private $initialValue;
 
     /**
-     * @param callable $callback Reducing callback
+     * @param callable   $callback     Reducing callback
      * @param mixed|null $initialValue
      */
     public function __construct(callable $callback, $initialValue = null)
@@ -21,9 +23,9 @@ class ReduceProcessor extends AbstractSingleValueProcessor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
-    public function process(iterable $iterable) : iterable
+    public function computeSingleValue(iterable $iterable)
     {
         $resultValue = $this->initialValue;
 
@@ -31,6 +33,6 @@ class ReduceProcessor extends AbstractSingleValueProcessor
             $resultValue = ($this->callback)($resultValue, $value, $key);
         }
 
-        return [$resultValue];
+        return $resultValue;
     }
 }

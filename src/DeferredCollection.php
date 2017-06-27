@@ -1,15 +1,22 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace DeferredCollection;
 
 use ArrayIterator;
 use DeferredCollection\Processor\ProcessorInterface;
-use JsonSerializable;
 use IteratorAggregate;
+use JsonSerializable;
 use LogicException;
 use RuntimeException;
 use Traversable;
 
+/**
+ * @method $this map(callable $callback, bool $mapKeys = false)
+ * @method $this filter(callable $predicate)
+ * @method $this reduce(callable $callback, $initialValue = null)
+ */
 class DeferredCollection implements
     IteratorAggregate,
     JsonSerializable
@@ -38,19 +45,21 @@ class DeferredCollection implements
 
     /**
      * @param iterable|callable $iterationSubject
+     *
      * @return DeferredCollection
      */
-    public function setIterationSubject($iterationSubject) : self
+    public function setIterationSubject($iterationSubject): self
     {
         $this->assertNotProcessed();
         $this->iterationSubject = new IterationSubject($iterationSubject);
+
         return $this;
     }
 
     /**
      * @throws LogicException
      */
-    private function assertNotProcessed() : void
+    private function assertNotProcessed(): void
     {
         if ($this->hasBeenAlreadyProcessed()) {
             throw new LogicException(get_class($this) . ' cannot be modified after it is processed');
@@ -60,7 +69,7 @@ class DeferredCollection implements
     /**
      * @return bool
      */
-    private function hasBeenAlreadyProcessed() : bool
+    private function hasBeenAlreadyProcessed(): bool
     {
         return $this->processedIterable !== null;
     }
@@ -86,7 +95,7 @@ class DeferredCollection implements
     /**
      * @return bool
      */
-    private function doesLastProcessorReturnsSingleValue() : bool
+    private function doesLastProcessorReturnsSingleValue(): bool
     {
         return count($this->processors)
             ? $this->processors[count($this->processors) - 1]->isSingleValue()
@@ -94,9 +103,10 @@ class DeferredCollection implements
     }
 
     /**
-     * Get the value if the processing result is a single value
+     * Get the value if the processing result is a single value.
      *
      * @param mixed $defaultValue
+     *
      * @return mixed
      */
     public function getValue($defaultValue = null)
@@ -104,11 +114,13 @@ class DeferredCollection implements
         if (!isset($this->processedValue)) {
             $this->processedValue = $this->extractSingleValueFromIterable($defaultValue);
         }
+
         return $this->processedValue;
     }
 
     /**
      * @param $defaultValue
+     *
      * @return mixed
      */
     private function extractSingleValueFromIterable($defaultValue)
@@ -119,25 +131,28 @@ class DeferredCollection implements
         foreach ($iterable as $value) {
             return $value;
         }
+
         return $defaultValue;
     }
 
     /**
      * @return iterable
      */
-    private function getProcessedIterable() : iterable
+    private function getProcessedIterable(): iterable
     {
         if ($this->processedIterable === null) {
             $this->processedIterable = $this->process();
         }
+
         return $this->processedIterable;
     }
 
     /**
-     * @return iterable
      * @throws RuntimeException
+     *
+     * @return iterable
      */
-    private function process() : iterable
+    private function process(): iterable
     {
         if (!$this->iterationSubject) {
             throw new RuntimeException('No iteration data were specified for ' . __CLASS__);
@@ -147,25 +162,28 @@ class DeferredCollection implements
         foreach ($this->processors as $processor) {
             $iterable = $processor->process($iterable);
         }
+
         return $iterable;
     }
 
     /**
      * @return array
      */
-    public function toArray() : array
+    public function toArray(): array
     {
         if (is_array($iterable = $this->getProcessedIterable())) {
             return $iterable;
         }
+
         return $this->iteratorToArray($iterable);
     }
 
     /**
      * @param Traversable $iterator
+     *
      * @return array
      */
-    private function iteratorToArray(Traversable $iterator) : array
+    private function iteratorToArray(Traversable $iterator): array
     {
         $array = [];
         $first = true;
@@ -178,13 +196,14 @@ class DeferredCollection implements
             }
             $array[$key] = $value;
         }
+
         return $array;
     }
 
     /**
      * @return string
      */
-    public function toJson() : string
+    public function toJson(): string
     {
         return json_encode($this->jsonSerialize());
     }
@@ -192,22 +211,26 @@ class DeferredCollection implements
     /**
      * @return Traversable
      */
-    public function getIterator() : Traversable
+    public function getIterator(): Traversable
     {
         $iterable = $this->getProcessedIterable();
+
         return is_array($iterable) ? new ArrayIterator($iterable) : $iterable;
     }
 
     /**
      * @param string $method
-     * @param array $arguments
-     * @return DeferredCollection
+     * @param array  $arguments
+     *
      * @throws RuntimeException
+     *
+     * @return DeferredCollection
      */
-    public function __call(string $method, array $arguments) : self
+    public function __call(string $method, array $arguments): self
     {
         if ($processorClassName = DeferredCollectionMethodRegistry::findProcessorClass($method)) {
             $this->pushProcessor(new $processorClassName(...$arguments));
+
             return $this;
         }
         throw new RuntimeException('Call to undefined method ' . get_class($this) . "::$method");
@@ -216,7 +239,7 @@ class DeferredCollection implements
     /**
      * @param ProcessorInterface $processor
      */
-    private function pushProcessor(ProcessorInterface $processor) : void
+    private function pushProcessor(ProcessorInterface $processor): void
     {
         $this->assertNotProcessed();
         $this->processors[] = $processor;

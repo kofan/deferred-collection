@@ -5,6 +5,14 @@ phplint:
 	./bin/phplint.sh src/ tests/
 .PHONY: phplint
 
+phpcs-check:
+	php-cs-fixer fix --dry-run --diff
+.PHONY: phpcs-check
+
+phpcs-fix:
+	php-cs-fixer fix
+.PHONY: phpcs-fix
+
 install:
 	composer install --optimize-autoloader
 .PHONY: install

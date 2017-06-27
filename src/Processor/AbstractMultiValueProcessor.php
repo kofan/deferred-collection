@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace DeferredCollection\Processor;
 
 abstract class AbstractMultiValueProcessor implements ProcessorInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
-    public function isSingleValue() : bool
+    public function isSingleValue(): bool
     {
         return false;
     }

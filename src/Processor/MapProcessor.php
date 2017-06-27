@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace DeferredCollection\Processor;
 
 class MapProcessor extends AbstractMultiValueProcessor
@@ -12,7 +14,7 @@ class MapProcessor extends AbstractMultiValueProcessor
 
     /**
      * @param callable $callback Mapping callback
-     * @param bool $mapKeys
+     * @param bool     $mapKeys
      */
     public function __construct(callable $callback, bool $mapKeys = false)
     {
@@ -21,12 +23,12 @@ class MapProcessor extends AbstractMultiValueProcessor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
-    public function process(iterable $iterable) : iterable
+    public function process(iterable $iterable): iterable
     {
         foreach ($iterable as $key => $value) {
-            list($mappedKey, $mappedValue) = $this->map($key, $value);
+            [$mappedKey, $mappedValue] = $this->map($key, $value);
             yield $mappedKey => $mappedValue;
         }
     }
@@ -34,15 +36,16 @@ class MapProcessor extends AbstractMultiValueProcessor
     /**
      * @param mixed $key
      * @param mixed $value
+     *
      * @return array
      */
-    private function map($key, $value) : array
+    private function map($key, $value): array
     {
         $mappedKey = $key;
         $mappedValue = ($this->callback)($value, $key);
 
         if ($this->mapKeys) {
-            list($mappedKey, $mappedValue) = $mappedValue;
+            [$mappedKey, $mappedValue] = $mappedValue;
         }
 
         return [$mappedKey, $mappedValue];

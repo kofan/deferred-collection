@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace DeferredCollection;
 
 use InvalidArgumentException;
@@ -42,18 +44,19 @@ class IterationSubject
     /**
      * @return iterable
      */
-    public function getIterable() : iterable
+    public function getIterable(): iterable
     {
         if ($this->iterable === null) {
             $this->iterable = $this->getIterableFromCallable();
         }
+
         return $this->iterable;
     }
 
     /**
      * @return iterable
      */
-    private function getIterableFromCallable() : iterable
+    private function getIterableFromCallable(): iterable
     {
         $callable = $this->callable;
         $iterable = $callable();
@@ -61,6 +64,7 @@ class IterationSubject
         if (!is_iterable($iterable)) {
             throw new InvalidArgumentException(__CLASS__ . ' callable subject should return iterable');
         }
+
         return $iterable;
     }
 }

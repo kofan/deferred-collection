@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace DeferredCollection\Processor;
 
 class FilterProcessor extends AbstractMultiValueProcessor
@@ -16,9 +18,9 @@ class FilterProcessor extends AbstractMultiValueProcessor
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
-    public function process(iterable $iterable) : iterable
+    public function process(iterable $iterable): iterable
     {
         foreach ($iterable as $key => $value) {
             if (($this->predicate)($value, $key)) {
