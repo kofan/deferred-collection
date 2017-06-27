@@ -1,6 +1,6 @@
 {
   "name": "kofan/deferred-collection",
-  "description": "Collections with deffered execution",
+  "description": "PHP collections with deferred operations and execution",
   "type": "library",
   "require": {
     "php": "^7.1"
