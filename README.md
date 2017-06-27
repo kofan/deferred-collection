@@ -42,9 +42,9 @@ foreach ($models as $model) {
 
 So there are several problems with this code there.
 
-# First of all, it tries to read all the models to the process memory at once. So if there are 1000 records found then it will try to read all 1000 into the process memory.
-# Second of all, it could be that this query is not needed at all if `somethingWrongHappened()` because in that case, an error is going to be thrown. So in this situation, the database query and its results are the waste of resources.
-# And, of course, during the data rendering it might happen that we won't need to iterate through all queries at all, even though we have fetched them from the database.
+1. First of all, it tries to read all the models to the process memory at once. So if there are 1000 records found then it will try to read all 1000 into the process memory.
+2. Second of all, it could be that this query is not needed at all if `somethingWrongHappened()` because in that case, an error is going to be thrown. So in this situation, the database query and its results are the waste of resources.
+3. And, of course, during the data rendering it might happen that we won't need to iterate through all queries at all, even though we have fetched them from the database.
 
 Thus, Deferred Collections are aiming to solve this problem.
 All the operations are actually going to be performed only when the collection is started being iterated through.
