@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace DeferredCollection;
 
+use DeferredCollection\TestUtils\DummyModel;
 use PHPUnit\Framework\TestCase;
 
 class DefferedCollectionIntegrationTest extends TestCase
@@ -29,7 +30,8 @@ class DefferedCollectionIntegrationTest extends TestCase
 
     public function testCollectionWithMapAndFilterAndReduce(): void
     {
-        $collection = new DeferredCollection(['a' => 97, 'b' => 10, 'c' => 99, 'd' => 100]);
+        $letterOrds = ['a' => 97, 'b' => 10, 'c' => 99, 'd' => 100];
+        $collection = new DeferredCollection($letterOrds);
 
         $collection
             ->map(function ($value, $key) {
@@ -43,5 +45,24 @@ class DefferedCollectionIntegrationTest extends TestCase
             }, '');
 
         $this->assertSame('acd', $collection->getValue());
+    }
+
+    public function testCollectionWithMapAndInstantiate(): void
+    {
+        $IDs = [101, 102, 103];
+        $collection = new DeferredCollection($IDs);
+
+        $collection
+            ->map(function ($value) {
+                return ['id' => $value];
+            })
+            ->instantiate(DummyModel::class);
+
+        /** @var DummyModel $array */
+        $array = $collection->toArray();
+
+        $this->assertSame($IDs[0], $array[0]->getId());
+        $this->assertSame($IDs[1], $array[1]->getId());
+        $this->assertSame($IDs[2], $array[2]->getId());
     }
 }

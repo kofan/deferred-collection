@@ -24,7 +24,7 @@ abstract class DeferredCollectionMethodRegistry
         'map' => MapProcessor::class,
         'filter' => FilterProcessor::class,
         'reduce' => ReduceProcessor::class,
-        'instantitate' => InstantiateProcessor::class,
+        'instantiate' => InstantiateProcessor::class,
     ];
 
     /**
