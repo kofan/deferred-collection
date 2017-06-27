@@ -1,0 +1,30 @@
+{
+  "name": "kofan/deferred-collection",
+  "description": "Collections with deffered execution",
+  "type": "library",
+  "require": {
+    "php": "^7.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.2",
+    "php": "^7.1",
+    "mockery/mockery": "dev-master"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Nickolay Kofanov",
+      "email": "kofan.com@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "DeferredCollection\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "DeferredCollection\\TestUtils\\": "tests/_resources/utils/"
+    }
+  }
+}
