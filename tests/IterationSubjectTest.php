@@ -16,7 +16,7 @@ class IterationSubjectTest extends TestCase
         new IterationSubject();
     }
 
-    public function testCannotCreateWithNull()
+    public function testCannotCreateWithNull(): void
     {
         $this->expectException(InvalidArgumentException::class);
         new IterationSubject(null);
