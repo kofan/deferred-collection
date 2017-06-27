@@ -1,8 +1,15 @@
+PHPLINT=./bin/phplint.sh
 PHPUNIT=./vendor/bin/phpunit
-TEST_REPORTS_DIR=./tests/_resources/reports/
+PHPMETRICS=./vendor/bin/phpmetrics
+TEST_REPORTS_DIR=./tests/_resources/reports
+
+composer:
+	composer validate
+	composer install --prefer-source --no-interaction --dev
+.PHONY: composer
 
 phplint:
-	./bin/phplint.sh src/ tests/
+	$(PHPLINT) src/ tests/
 .PHONY: phplint
 
 phpcs-check:
@@ -12,11 +19,6 @@ phpcs-check:
 phpcs-fix:
 	php-cs-fixer fix
 .PHONY: phpcs-fix
-
-composer:
-	composer validate
-	composer install --prefer-source --no-interaction --dev
-.PHONY: composer
 
 phpunit-no-report:
 	$(PHPUNIT)
@@ -32,6 +34,14 @@ phpunit-coverage:
 	--coverage-clover $(TEST_REPORTS_DIR)/clover.xml \
 	--log-junit $(TEST_REPORTS_DIR)/phpunit-report.xml
 .PHONY: phpunit-coverage
+
+metrics: phpunit
+	$(PHPMETRICS) \
+	--report-html=$(TEST_REPORTS_DIR)/metrics \
+	--junit=$(TEST_REPORTS_DIR)/phpunit-report.xml \
+	--extenstions=php \
+	./src
+.PHONY: metrics
 
 check: phplint phpcs-check phpunit
 

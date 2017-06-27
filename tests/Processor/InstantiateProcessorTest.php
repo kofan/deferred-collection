@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace DeferredCollection\Processor;
 
 use ArrayObject;
+use DeferredCollection\TestUtils\DummyModel;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
@@ -28,14 +29,13 @@ class InstantiateProcessorTest extends TestCase
         (new InstantiateProcessor('noop'));
     }
 
-    public function testInstantiatesTheValuesWithIntegerIndexing(): void
+    public function testInstantiatesModelsWithListIndexing(): void
     {
-        $modelClassName = ArrayObject::class;
-        $instantiateProcessor = new InstantiateProcessor($modelClassName);
         $index = 0;
+        $instantiateProcessor = new InstantiateProcessor(DummyModel::class);
 
         foreach ($instantiateProcessor->process(self::MODELS_WITH_ID_AND_NAME) as $key => $model) {
-            $this->assertInstanceOf($modelClassName, $model);
+            $this->assertInstanceOf(DummyModel::class, $model);
             $this->assertSame(self::MODELS_WITH_ID_AND_NAME[$index], $model->getArrayCopy());
             $this->assertSame($index, $key);
             ++$index;
@@ -43,19 +43,13 @@ class InstantiateProcessorTest extends TestCase
         $this->assertSame($index, count(self::MODELS_WITH_ID_AND_NAME));
     }
 
-    public function testInstantiatesTheValuesWithFieldIndexing(): void
+    public function testInstantiatesModelsWithFieldValueIndexing(): void
     {
-        $modelClassName = get_class(new class() extends ArrayObject {
-            public function __construct($input = [], $flags = 0, $iterator_class = 'ArrayIterator')
-            {
-                parent::__construct($input, ArrayObject::STD_PROP_LIST | ArrayObject::ARRAY_AS_PROPS, $iterator_class);
-            }
-        });
-        $instantiateProcessor = new InstantiateProcessor($modelClassName, 'id');
         $index = 0;
+        $instantiateProcessor = new InstantiateProcessor(DummyModel::class, 'id');
 
         foreach ($instantiateProcessor->process(self::MODELS_WITH_ID_AND_NAME) as $key => $model) {
-            $this->assertInstanceOf($modelClassName, $model);
+            $this->assertInstanceOf(DummyModel::class, $model);
             $this->assertSame(self::MODELS_WITH_ID_AND_NAME[$index], $model->getArrayCopy());
             $this->assertSame($model->id, $key);
             ++$index;
@@ -63,19 +57,13 @@ class InstantiateProcessorTest extends TestCase
         $this->assertSame($index, count(self::MODELS_WITH_ID_AND_NAME));
     }
 
-    public function testInstantiatesTheValuesWithMethodIndexing(): void
+    public function testInstantiatesModelsWithMethodValueIndexing(): void
     {
-        $modelClassName = get_class(new class() extends ArrayObject {
-            public function getId()
-            {
-                return $this['id'];
-            }
-        });
-        $instantiateProcessor = new InstantiateProcessor($modelClassName, 'getId');
         $index = 0;
+        $instantiateProcessor = new InstantiateProcessor(DummyModel::class, 'getId');
 
         foreach ($instantiateProcessor->process(self::MODELS_WITH_ID_AND_NAME) as $key => $model) {
-            $this->assertInstanceOf($modelClassName, $model);
+            $this->assertInstanceOf(DummyModel::class, $model);
             $this->assertSame(self::MODELS_WITH_ID_AND_NAME[$index], $model->getArrayCopy());
             $this->assertSame($model->getId(), $key);
             ++$index;
