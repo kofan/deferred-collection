@@ -28,8 +28,8 @@ phpunit:
 
 phpunit-coverage:
 	$(PHPUNIT) \
-	--coverage-html $(TEST_REPORTS_DIR)/html \
-	--coverage-clover $(TEST_REPORTS_DIR)/clover/clover.xml \
+	--coverage-html $(TEST_REPORTS_DIR)/coverage-html \
+	--coverage-clover $(TEST_REPORTS_DIR)/clover.xml \
 	--log-junit $(TEST_REPORTS_DIR)/phpunit-report.xml
 .PHONY: phpunit-coverage
 
