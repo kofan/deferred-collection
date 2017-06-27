@@ -104,6 +104,7 @@ enabled:
   - php_unit_strict
   - dir_constant
   - self_accessor
+  - void_return
 
 disabled:
   - psr0

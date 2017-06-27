@@ -18,6 +18,7 @@ return PhpCsFixer\Config::create()
 function getRules() {
     return [
         '@PSR2' => true,
+        '@PHP71Migration' => true,
         'array_syntax' => [
             'syntax' => 'short',
         ],
@@ -167,5 +168,6 @@ function getRules() {
             'method',
         ],
         'whitespace_after_comma_in_array' => true,
+     // 'void_return' => true,
     ];
 }

@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace DeferredCollection;
 
 use DeferredCollection\Processor\FilterProcessor;
+use DeferredCollection\Processor\InstantiateProcessor;
 use DeferredCollection\Processor\MapProcessor;
 use DeferredCollection\Processor\ProcessorInterface;
 use DeferredCollection\Processor\ReduceProcessor;
@@ -23,6 +24,7 @@ abstract class DeferredCollectionMethodRegistry
         'map' => MapProcessor::class,
         'filter' => FilterProcessor::class,
         'reduce' => ReduceProcessor::class,
+        'instantitate' => InstantiateProcessor::class,
     ];
 
     /**

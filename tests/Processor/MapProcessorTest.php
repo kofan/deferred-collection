@@ -8,24 +8,43 @@ use PHPUnit\Framework\TestCase;
 
 class MapProcessorTest extends TestCase
 {
-    private const RANGE_10_TO_15 = [10, 11, 12, 13, 14, 15];
+    private const RANGE_0_TO_5 = [0, 1, 2, 3, 4, 5];
 
     public function testShouldBeMultiValue(): void
     {
         $this->assertFalse(
-            (new FilterProcessor('noop'))->isSingleValue()
+            (new MapProcessor('noop'))->isSingleValue()
         );
     }
 
-    public function testFiltersTheValues()
+    public function testMapsTheValues()
     {
-        $filterProcessor = new FilterProcessor(function ($value) {
-            return $value % 2 === 0;
+        $mapProcessor = new MapProcessor(function ($value) {
+            return 10 * $value;
         });
 
-        foreach ($filterProcessor->process(self::RANGE_10_TO_15) as $key => $value) {
-            $this->assertTrue($value % 2 === 0);
-            $this->assertSame(array_search($value, self::RANGE_10_TO_15, true), $key);
+        $index = 0;
+        foreach ($mapProcessor->process(self::RANGE_0_TO_5) as $key => $value) {
+            $this->assertSame($index, $key);
+            $this->assertSame(10 * self::RANGE_0_TO_5[$index], $value);
+            ++$index;
+        }
+    }
+
+    public function testMapsTheValuesAndKeys(): void
+    {
+        $mapProcessor = new MapProcessor(
+            function ($value, $key) {
+                return [5 * $key, 10 * $value];
+            },
+            $mapKeys = true
+        );
+
+        $index = 0;
+        foreach ($mapProcessor->process(self::RANGE_0_TO_5) as $key => $value) {
+            $this->assertSame(5 * $index, $key);
+            $this->assertSame(10 * self::RANGE_0_TO_5[$index], $value);
+            ++$index;
         }
     }
 }

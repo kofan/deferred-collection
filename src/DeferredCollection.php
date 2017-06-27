@@ -16,6 +16,7 @@ use Traversable;
  * @method $this map(callable $callback, bool $mapKeys = false)
  * @method $this filter(callable $predicate)
  * @method $this reduce(callable $callback, $initialValue = null)
+ * @method $this instantiate(string $modelClassName, string $indexBy = '')
  */
 class DeferredCollection implements
     IteratorAggregate,
