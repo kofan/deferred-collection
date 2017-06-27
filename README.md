@@ -12,7 +12,9 @@ It turns out that very often the reason of application poor performance is an ex
 Moreover, performing heavy operations on the whole collection at once is usually very inefficient and takes too much memory.
 So, for example, let's take a look at the code
 
-```
+```php
+<?php 
+
 $query  = 'SELECT id, name, department FROM my_table';
 $result = $mysqli->query($query, MYSQLI_USE_RESULT)
 $models = [];
@@ -50,7 +52,9 @@ Thus, Deferred Collections are aiming to solve this problem.
 All the operations are actually going to be performed only when the collection is started being iterated through.
 For example:
 
-```
+```php
+<?php
+
 $collection = new DeferredCollection(function() {
     $query  = 'SELECT id, name, department FROM my_table';
     $result = $mysqli->query($query, MYSQLI_USE_RESULT)
