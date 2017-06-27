@@ -13,9 +13,10 @@ phpcs-fix:
 	php-cs-fixer fix
 .PHONY: phpcs-fix
 
-install:
-	composer install --optimize-autoloader
-.PHONY: install
+composer:
+	composer validate
+	composer install --prefer-source --no-interaction --dev
+.PHONY: composer
 
 phpunit-no-report:
 	$(PHPUNIT)
@@ -31,3 +32,6 @@ phpunit-coverage:
 	--coverage-clover $(TEST_REPORTS_DIR)/clover/clover.xml \
 	--log-junit $(TEST_REPORTS_DIR)/phpunit-report.xml
 .PHONY: phpunit-coverage
+
+check: phplint phpcs-check phpunit
+
