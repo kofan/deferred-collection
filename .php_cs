@@ -1,6 +1,7 @@
 <?php
 $src = __DIR__ . '/src';
 $tests = __DIR__ . '/tests';
+$cache = __DIR__ . '/.php_cs.cache';
 
 $finder = PhpCsFixer\Finder::create()
     ->in([$src, $tests])
@@ -10,6 +11,7 @@ $finder = PhpCsFixer\Finder::create()
 ;
 
 return PhpCsFixer\Config::create()
+    ->setCacheFile($cache)
     ->setRules(getRules())
     ->setFinder($finder)
     ->setRiskyAllowed(true)
@@ -35,7 +37,7 @@ function getRules() {
             'spacing' => 'one',
         ],
         'declare_equal_normalize' => [
-            'space' => 'single',
+            'space' => 'none',
         ],
         'declare_strict_types' => true,
         'dir_constant' => true,
@@ -168,6 +170,6 @@ function getRules() {
             'method',
         ],
         'whitespace_after_comma_in_array' => true,
-     // 'void_return' => true,
+    //  'void_return' => true,
     ];
 }

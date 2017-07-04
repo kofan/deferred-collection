@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace DeferredCollection;
 
@@ -58,7 +58,7 @@ class DefferedCollectionIntegrationTest extends TestCase
             })
             ->instantiate(DummyModel::class);
 
-        /** @var DummyModel $array */
+        /** @var DummyModel[] $array */
         $array = $collection->toArray();
 
         $this->assertSame($IDs[0], $array[0]->getId());
