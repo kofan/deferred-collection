@@ -46,7 +46,7 @@ class MaxProcessorTest extends TestCase
         $this->assertSame([$expectedMaxValue], $actualResult);
     }
 
-    public function testInvalidMaxIterateeParameterType()
+    public function testInvalidMaxIterateeParameterType(): void
     {
         $this->expectException(InvalidArgumentException::class);
         new MaxProcessor(100);

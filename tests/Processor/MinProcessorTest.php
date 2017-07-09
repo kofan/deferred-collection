@@ -46,7 +46,7 @@ class MinProcessorTest extends TestCase
         $this->assertSame([$expectedMinValue], $actualResult);
     }
 
-    public function testInvalidMinIterateeParameterType()
+    public function testInvalidMinIterateeParameterType(): void
     {
         $this->expectException(InvalidArgumentException::class);
         new MinProcessor(100);
