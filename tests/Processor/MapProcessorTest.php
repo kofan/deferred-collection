@@ -17,7 +17,7 @@ class MapProcessorTest extends TestCase
         );
     }
 
-    public function testMapsTheValues()
+    public function testMapsTheValues(): void
     {
         $mapProcessor = new MapProcessor(function ($value) {
             return 10 * $value;

@@ -18,7 +18,7 @@ class MatchPropertyProcessorTest extends TestCase
 
     private const NAME_TO_MATCH = 'Name X';
 
-    public function testMatchPropertyWithArrayItemValue()
+    public function testMatchPropertyWithArrayItemValue(): void
     {
         $originalItems = $this->getModelRawArrays();
         $iterable = (new MatchPropertyProcessor('[name]', self::NAME_TO_MATCH))
@@ -40,7 +40,7 @@ class MatchPropertyProcessorTest extends TestCase
         return self::MODELS_WITH_ID_AND_NAME;
     }
 
-    public function testMatchPropertyWithObjectPropertyValue()
+    public function testMatchPropertyWithObjectPropertyValue(): void
     {
         $originalObjects = $this->getModelObjects();
         $iterable = (new MatchPropertyProcessor('name', self::NAME_TO_MATCH))
@@ -64,7 +64,7 @@ class MatchPropertyProcessorTest extends TestCase
         }, $this->getModelRawArrays());
     }
 
-    public function testMatchPropertyWithCallback()
+    public function testMatchPropertyWithCallback(): void
     {
         $callback = function ($name) {
             return $name === self::NAME_TO_MATCH;

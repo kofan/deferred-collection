@@ -17,7 +17,7 @@ class ReduceProcessorTest extends TestCase
         );
     }
 
-    public function testReducesTheValues()
+    public function testReducesTheValues(): void
     {
         $reduceProcessor = new ReduceProcessor(
             function ($result, $value, $key) {

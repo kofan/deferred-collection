@@ -15,7 +15,7 @@ class PluckPropertyProcessorTest extends TestCase
         ['id' => 2, 'name' => 'Name 2'],
     ];
 
-    public function testMatchPropertyWithArrayItemValue()
+    public function testMatchPropertyWithArrayItemValue(): void
     {
         $originalItems = $this->getModelRawArrays();
         $iterable = (new PluckPropertyProcessor('[name]'))
@@ -37,7 +37,7 @@ class PluckPropertyProcessorTest extends TestCase
         return self::MODELS_WITH_ID_AND_NAME;
     }
 
-    public function testMatchPropertyWithObjectPropertyValue()
+    public function testMatchPropertyWithObjectPropertyValue(): void
     {
         $originalObjects = $this->getModelObjects();
         $iterable = (new PluckPropertyProcessor('name'))

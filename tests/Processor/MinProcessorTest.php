@@ -16,7 +16,7 @@ class MinProcessorTest extends TestCase
 
     private const NUMBERS_LIST = [2, 1, 5, 6, 7, 0, 3, 4];
 
-    public function testMinRegularValue()
+    public function testMinRegularValue(): void
     {
         $actualResult = (new MinProcessor())->process(self::NUMBERS_LIST);
         $expectedMinValue = min(self::NUMBERS_LIST);
@@ -24,7 +24,7 @@ class MinProcessorTest extends TestCase
         $this->assertSame([$expectedMinValue], $actualResult);
     }
 
-    public function testMinPropertyValue()
+    public function testMinPropertyValue(): void
     {
         $models = self::MODELS_WITH_ID_AND_NAME;
         $actualResult = (new MinProcessor('[id]'))->process($models);
@@ -33,7 +33,7 @@ class MinProcessorTest extends TestCase
         $this->assertSame([$expectedMinValue], $actualResult);
     }
 
-    public function testMinCallbackValue()
+    public function testMinCallbackValue(): void
     {
         $models = self::MODELS_WITH_ID_AND_NAME;
         $callback = function ($item) {

@@ -17,7 +17,7 @@ class FilterProcessorTest extends TestCase
         );
     }
 
-    public function testFiltersTheValues()
+    public function testFiltersTheValues(): void
     {
         $filterProcessor = new FilterProcessor(function ($value) {
             return $value % 2 === 0;

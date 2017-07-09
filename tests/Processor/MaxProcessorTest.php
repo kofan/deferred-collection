@@ -16,7 +16,7 @@ class MaxProcessorTest extends TestCase
 
     private const NUMBERS_LIST = [2, 1, 5, 6, 7, 0, 3, 4];
 
-    public function testMaxRegularValue()
+    public function testMaxRegularValue(): void
     {
         $actualResult = (new MaxProcessor())->process(self::NUMBERS_LIST);
         $expectedMaxValue = max(self::NUMBERS_LIST);
@@ -24,7 +24,7 @@ class MaxProcessorTest extends TestCase
         $this->assertSame([$expectedMaxValue], $actualResult);
     }
 
-    public function testMaxPropertyValue()
+    public function testMaxPropertyValue(): void
     {
         $models = self::MODELS_WITH_ID_AND_NAME;
         $actualResult = (new MaxProcessor('[id]'))->process($models);
@@ -33,7 +33,7 @@ class MaxProcessorTest extends TestCase
         $this->assertSame([$expectedMaxValue], $actualResult);
     }
 
-    public function testMaxCallbackValue()
+    public function testMaxCallbackValue(): void
     {
         $models = self::MODELS_WITH_ID_AND_NAME;
         $callback = function ($item) {
