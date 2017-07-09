@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DeferredCollection\Processor;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class MaxProcessorTest extends TestCase
@@ -43,5 +44,11 @@ class MaxProcessorTest extends TestCase
         $expectedMaxValue = $models[count($models) - 1];
 
         $this->assertSame([$expectedMaxValue], $actualResult);
+    }
+
+    public function testInvalidMaxIterateeParameterType()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        new MaxProcessor(100);
     }
 }

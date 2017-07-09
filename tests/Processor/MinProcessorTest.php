@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DeferredCollection\Processor;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class MinProcessorTest extends TestCase
@@ -43,5 +44,11 @@ class MinProcessorTest extends TestCase
         $expectedMinValue = $models[0];
 
         $this->assertSame([$expectedMinValue], $actualResult);
+    }
+
+    public function testInvalidMinIterateeParameterType()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        new MinProcessor(100);
     }
 }
