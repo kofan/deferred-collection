@@ -3,7 +3,8 @@
   "description": "PHP collections with deferred operations and execution",
   "type": "library",
   "require": {
-    "php": "^7.1"
+    "php": "^7.1",
+    "symfony/property-access": "^3.3"
   },
   "require-dev": {
     "phpunit/phpunit": "^6.2",

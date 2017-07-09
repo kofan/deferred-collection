@@ -23,7 +23,7 @@ class InstantiateProcessorTest extends TestCase
         );
     }
 
-    public function testThrowsAnExceptionWhenInvalidClassName(): void
+    public function testThrowsExceptionWhenInvalidClassName(): void
     {
         $this->expectException(RuntimeException::class);
         (new InstantiateProcessor('noop'));

@@ -58,8 +58,7 @@ class IterationSubject
      */
     private function getIterableFromCallable(): iterable
     {
-        $callable = $this->callable;
-        $iterable = $callable();
+        $iterable = ($this->callable)();
 
         if (!is_iterable($iterable)) {
             throw new InvalidArgumentException(__CLASS__ . ' callable subject should return iterable');

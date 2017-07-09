@@ -15,8 +15,12 @@ use Traversable;
 /**
  * @method $this map(callable $callback, bool $mapKeys = false)
  * @method $this filter(callable $predicate)
- * @method $this reduce(callable $callback, $initialValue = null)
+ * @method $this reduce(callable $callback, mixed $initialValue = null)
  * @method $this instantiate(string $modelClassName, string $indexBy = '')
+ * @method $this matchProperty(string $propertyName, mixed|callable $matcher)
+ * @method $this pluckProperty(string $propertyName)
+ * @method $this max(string|callable|null $iteratee = null)
+ * @method $this min(string|callable|null $iteratee = null)
  */
 class DeferredCollection implements
     IteratorAggregate,

@@ -65,4 +65,36 @@ class DefferedCollectionIntegrationTest extends TestCase
         $this->assertSame($IDs[1], $array[1]->getId());
         $this->assertSame($IDs[2], $array[2]->getId());
     }
+
+    public function testCollectionWithPluckPropertyAndMin(): void
+    {
+        $models = [
+            ['id' => 1],
+            ['id' => 2],
+            ['id' => 0],
+        ];
+        $collection = new DeferredCollection($models);
+
+        $collection
+            ->pluckProperty('[id]')
+            ->min();
+
+        $this->assertSame(0, $collection->getValue());
+    }
+
+    public function testCollectionWithMatchPropertyAndMax(): void
+    {
+        $models = [
+            ['id' => 1, 'name' => 'X'],
+            ['id' => 2, 'name' => 'Y'],
+            ['id' => 0, 'name' => 'X'],
+        ];
+        $collection = new DeferredCollection($models);
+
+        $collection
+            ->matchProperty('[name]', 'X')
+            ->max('[id]');
+
+        $this->assertSame($models[0], $collection->getValue());
+    }
 }

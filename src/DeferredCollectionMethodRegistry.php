@@ -7,6 +7,10 @@ namespace DeferredCollection;
 use DeferredCollection\Processor\FilterProcessor;
 use DeferredCollection\Processor\InstantiateProcessor;
 use DeferredCollection\Processor\MapProcessor;
+use DeferredCollection\Processor\MatchPropertyProcessor;
+use DeferredCollection\Processor\MaxProcessor;
+use DeferredCollection\Processor\MinProcessor;
+use DeferredCollection\Processor\PluckPropertyProcessor;
 use DeferredCollection\Processor\ProcessorInterface;
 use DeferredCollection\Processor\ReduceProcessor;
 use InvalidArgumentException;
@@ -25,6 +29,10 @@ abstract class DeferredCollectionMethodRegistry
         'filter' => FilterProcessor::class,
         'reduce' => ReduceProcessor::class,
         'instantiate' => InstantiateProcessor::class,
+        'matchProperty' => MatchPropertyProcessor::class,
+        'pluckProperty' => PluckPropertyProcessor::class,
+        'min' => MinProcessor::class,
+        'max' => MaxProcessor::class,
     ];
 
     /**
