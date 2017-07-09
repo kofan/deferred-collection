@@ -17,16 +17,6 @@ trait PropertyProcessorTrait
     private $propertyAccessor;
 
     /**
-     * AbstractPropertyProcessor constructor.
-     *
-     * @param $propertyName
-     */
-    public function __construct(string $propertyName)
-    {
-        $this->propertyName = $propertyName;
-    }
-
-    /**
      * @param array|object $item
      *
      * @return mixed
