@@ -10,6 +10,9 @@ return [
     // (e.g. PHP is compiled with --enable-debug or when using XDebug)
     'skip_slow_php_options_warning' => true,
 
+    // Include a progress bar in the output
+    'progress_bar' => true,
+
     // Backwards Compatibility Checking. This is slow
     // and expensive, but you should consider running
     // it before upgrading your version of PHP to a

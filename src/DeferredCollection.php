@@ -168,7 +168,6 @@ class DeferredCollection implements
         foreach ($this->processors as $processor) {
             $iterable = $processor->process($iterable);
         }
-
         return $iterable;
     }
 
@@ -180,7 +179,6 @@ class DeferredCollection implements
         if (is_array($iterable = $this->getProcessedIterable())) {
             return $iterable;
         }
-
         /** @var Traversable $iterable */
         return $this->iteratorToArray($iterable);
     }

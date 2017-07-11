@@ -28,6 +28,7 @@ cache:
 
 # Commands to be run before your environment runs.
 before_script:
+  - ./.phan/travis_install.sh
   - composer self-update
   - composer require satooshi/php-coveralls:dev-master
   - travis_retry composer install --prefer-source --no-interaction --dev
