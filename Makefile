@@ -23,7 +23,7 @@ phpcs-fix:
 
 phan:
 	$(PHAN)
-.PHONY: phplint
+.PHONY: phan
 
 phpunit-no-report:
 	$(PHPUNIT)
