@@ -74,7 +74,7 @@ abstract class AbstractBoundaryValueProcessor extends AbstractSingleValueProcess
      * @param mixed $currentValue
      * @param mixed $newValue
      *
-     * @return mixed
+     * @return bool
      */
     abstract protected function isNotNewBoundary($currentValue, $newValue): bool;
 }

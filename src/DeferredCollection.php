@@ -13,29 +13,29 @@ use RuntimeException;
 use Traversable;
 
 /**
- * @method $this map(callable $callback, bool $mapKeys = false)
- * @method $this filter(callable $predicate)
- * @method $this reduce(callable $callback, mixed $initialValue = null)
- * @method $this instantiate(string $modelClassName, string $indexBy = '')
- * @method $this matchProperty(string $propertyName, mixed|callable $matcher)
- * @method $this pluckProperty(string $propertyName)
- * @method $this max(string|callable|null $iteratee = null)
- * @method $this min(string|callable|null $iteratee = null)
+ * @method DeferredCollection map(callable $callback, bool $mapKeys = false)
+ * @method DeferredCollection filter(callable $predicate)
+ * @method DeferredCollection reduce(callable $callback, mixed $initialValue = null)
+ * @method DeferredCollection instantiate(string $modelClassName, string $indexBy = '')
+ * @method DeferredCollection matchProperty(string $propertyName, mixed|callable $matcher)
+ * @method DeferredCollection pluckProperty(string $propertyName)
+ * @method DeferredCollection max(string|callable|null $iteratee = null)
+ * @method DeferredCollection min(string|callable|null $iteratee = null)
  */
 class DeferredCollection implements
     IteratorAggregate,
     JsonSerializable
 {
-    /** @var IterationSubject */
+    /** @var ?IterationSubject */
     private $iterationSubject;
 
     /** @var ProcessorInterface[] */
     private $processors = [];
 
-    /** @var iterable */
+    /** @var ?iterable */
     private $processedIterable;
 
-    /** @var iterable */
+    /** @var mixed */
     private $processedValue;
 
     /**
@@ -131,6 +131,7 @@ class DeferredCollection implements
     private function extractSingleValueFromIterable($defaultValue)
     {
         if (is_array($iterable = $this->getProcessedIterable())) {
+            /** @var array $iterable */
             return count($iterable) ? reset($iterable) : $defaultValue;
         }
         foreach ($iterable as $value) {
@@ -180,6 +181,7 @@ class DeferredCollection implements
             return $iterable;
         }
 
+        /** @var Traversable $iterable */
         return $this->iteratorToArray($iterable);
     }
 

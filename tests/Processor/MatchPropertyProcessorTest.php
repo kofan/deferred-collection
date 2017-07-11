@@ -6,6 +6,7 @@ namespace DeferredCollection\Processor;
 
 use ArrayObject;
 use PHPUnit\Framework\TestCase;
+use Traversable;
 
 class MatchPropertyProcessorTest extends TestCase
 {
@@ -21,6 +22,8 @@ class MatchPropertyProcessorTest extends TestCase
     public function testMatchPropertyWithArrayItemValue(): void
     {
         $originalItems = $this->getModelRawArrays();
+
+        /** @var Traversable $iterable */
         $iterable = (new MatchPropertyProcessor('[name]', self::NAME_TO_MATCH))
             ->process($originalItems);
 
@@ -43,6 +46,8 @@ class MatchPropertyProcessorTest extends TestCase
     public function testMatchPropertyWithObjectPropertyValue(): void
     {
         $originalObjects = $this->getModelObjects();
+
+        /** @var Traversable $iterable */
         $iterable = (new MatchPropertyProcessor('name', self::NAME_TO_MATCH))
             ->process($originalObjects);
 
@@ -70,6 +75,8 @@ class MatchPropertyProcessorTest extends TestCase
             return $name === self::NAME_TO_MATCH;
         };
         $originalObjects = $this->getModelObjects();
+
+        /** @var Traversable $iterable */
         $iterable = (new MatchPropertyProcessor('name', $callback))
             ->process($originalObjects);
 

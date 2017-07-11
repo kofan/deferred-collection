@@ -7,6 +7,7 @@ namespace DeferredCollection\Processor;
 use ArrayObject;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use Traversable;
 
 class PluckPropertyProcessorTest extends TestCase
 {
@@ -19,6 +20,8 @@ class PluckPropertyProcessorTest extends TestCase
     public function testPluckPropertyWithArrayItemValue(): void
     {
         $originalItems = $this->getModelRawArrays();
+
+        /** @var Traversable $iterable */
         $iterable = (new PluckPropertyProcessor('[name]'))
             ->process($originalItems);
 
@@ -41,6 +44,8 @@ class PluckPropertyProcessorTest extends TestCase
     public function testPluckPropertyWithObjectPropertyValue(): void
     {
         $originalObjects = $this->getModelObjects();
+
+        /** @var Traversable $iterable */
         $iterable = (new PluckPropertyProcessor('name'))
             ->process($originalObjects);
 
@@ -66,6 +71,9 @@ class PluckPropertyProcessorTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessageRegExp('/cannot access the property/');
-        iterator_to_array((new PluckPropertyProcessor('name'))->process([1, 2, 3]));
+
+        /** @var Traversable $iterable */
+        $iterable = (new PluckPropertyProcessor('name'))->process([1, 2, 3]);
+        iterator_to_array($iterable);
     }
 }

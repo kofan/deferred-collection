@@ -10,7 +10,8 @@
     "phpunit/phpunit": "^6.2",
     "mockery/mockery": "dev-master",
     "friendsofphp/php-cs-fixer": "dev-master",
-    "phpmetrics/phpmetrics": "^2.2"
+    "phpmetrics/phpmetrics": "^2.2",
+    "etsy/phan": "dev-master"
   },
   "license": "MIT",
   "authors": [

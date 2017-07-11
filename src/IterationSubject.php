@@ -11,10 +11,10 @@ class IterationSubject
     /** @var iterable|callable */
     private $subject;
 
-    /** @var iterable */
+    /** @var ?iterable */
     private $iterable;
 
-    /** @var callable */
+    /** @var ?callable */
     private $callable;
 
     /**
@@ -29,7 +29,6 @@ class IterationSubject
         } else {
             throw new InvalidArgumentException(__CLASS__ . ' accepts either iterable or callable object');
         }
-
         $this->subject = $subject;
     }
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5aa220f82d233220397d3e280063395e",
+    "content-hash": "a7dfb05cb8b0804d1dfa245d2151b166",
     "packages": [
         {
             "name": "paragonie/random_compat",
@@ -415,6 +415,59 @@
                 "parser"
             ],
             "time": "2014-09-09T13:34:57+00:00"
+        },
+        {
+            "name": "etsy/phan",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/etsy/phan.git",
+                "reference": "27722bab6172fd4a25c4c50863717da36f05046a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/etsy/phan/zipball/27722bab6172fd4a25c4c50863717da36f05046a",
+                "reference": "27722bab6172fd4a25c4c50863717da36f05046a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ast": "^0.1.4",
+                "php": "~7.1.0",
+                "symfony/console": "~2.3|~3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.2.1"
+            },
+            "bin": [
+                "phan",
+                "phan_client",
+                "tocheckstyle"
+            ],
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Phan\\": "src/Phan"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rasmus Lerdorf"
+                },
+                {
+                    "name": "Andrew S. Morrison"
+                }
+            ],
+            "description": "A static analyzer for PHP",
+            "keywords": [
+                "analyzer",
+                "php",
+                "static"
+            ],
+            "time": "2017-07-09T18:34:42+00:00"
         },
         {
             "name": "friendsofphp/php-cs-fixer",
@@ -2762,7 +2815,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "mockery/mockery": 20,
-        "friendsofphp/php-cs-fixer": 20
+        "friendsofphp/php-cs-fixer": 20,
+        "etsy/phan": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

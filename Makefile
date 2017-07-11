@@ -1,6 +1,7 @@
 PHPLINT=./bin/phplint.sh
 PHPUNIT=./vendor/bin/phpunit
 PHPMETRICS=./vendor/bin/phpmetrics
+PHAN=./vendor/bin/phan
 TEST_REPORTS_DIR=./tests/_resources/reports
 
 composer:
@@ -19,6 +20,10 @@ phpcs-check:
 phpcs-fix:
 	php-cs-fixer fix
 .PHONY: phpcs-fix
+
+phan:
+	$(PHAN)
+.PHONY: phplint
 
 phpunit-no-report:
 	$(PHPUNIT)
@@ -43,5 +48,5 @@ metrics: phpunit
 	./src
 .PHONY: metrics
 
-check: phplint phpcs-check phpunit
+check: phplint phpcs-check phpunit phan
 
