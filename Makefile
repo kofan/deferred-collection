@@ -1,5 +1,6 @@
 PHPLINT=./bin/phplint.sh
 PHPUNIT=./vendor/bin/phpunit
+PHPCPD=./vendor/bin/phpcpd
 PHPMD=./vendor/bin/phpmd
 PHPMETRICS=./vendor/bin/phpmetrics
 PHAN=./vendor/bin/phan
@@ -15,7 +16,7 @@ phplint:
 .PHONY: phplint
 
 phpcs-check:
-	php-cs-fixer fix --dry-run --diff
+	php-cs-fixer fix --dry-run --diff --verbose
 .PHONY: phpcs-check
 
 phpcs-fix:
@@ -27,20 +28,22 @@ phan:
 	$(PHAN)
 .PHONY: phan
 
-phpunit-no-report:
-	$(PHPUNIT)
-.PHONY: phpunit-no-report
-
+# Run phpunit without reports
 phpunit:
-	$(PHPUNIT) --log-junit $(TEST_REPORTS_DIR)/phpunit-report.xml
+	$(PHPUNIT)
 .PHONY: phpunit
 
+# Run phpunit and generate coverage html and xml report as well as junit format report
 phpunit-coverage:
 	$(PHPUNIT) \
 	--coverage-html $(TEST_REPORTS_DIR)/coverage-html \
 	--coverage-clover $(TEST_REPORTS_DIR)/clover.xml \
-	--log-junit $(TEST_REPORTS_DIR)/phpunit-report.xml
+	--log-junit $(TEST_REPORTS_DIR)/phpunit.xml
 .PHONY: phpunit-coverage
+
+phpcpd:
+	$(PHPCPD) src/ tests/ --min-lines=4 --min-tokens=30 --progress
+.PHONY: phpcpd
 
 # PHPMD doesn't work correctly with PHP 7.1 yet because of the PHP_Depend issue
 # https://github.com/pdepend/pdepend/issues/297
@@ -48,5 +51,24 @@ phpmd:
 	$(PHPMD) src/,tests/ text phpmd.xml
 .PHONY: phpmd
 
-check: phplint phpcs-check phpunit phpmd
+# Submit coverage report to Coveralls servers, see .coveralls.yml
+coveralls:
+	composer require satooshi/php-coveralls:dev-master --no-update --no-progress
+	php vendor/bin/coveralls -v
+.PHONY: coveralls
+
+# --- Dev macros ---
+check: phplint phpcs-check phpcpd
+before_commit: check phpunit
+.PHONY: check before_commit
+
+# --- CI commands ---
+ci_before_build:
+	.phan/ast_install.sh
+	composer self-update
+	$(MAKE) composer
+ci_build: check phpunit-coverage
+ci_after_build: coveralls
+
+.PHONY: ci_before_build ci_build ci_after_build
 

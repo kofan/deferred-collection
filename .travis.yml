@@ -28,19 +28,15 @@ cache:
 
 # Commands to be run before your environment runs.
 before_script:
-  - ./.phan/travis_install.sh
-  - composer self-update
-  - composer require satooshi/php-coveralls:dev-master
-  - travis_retry composer install --prefer-source --no-interaction --dev
+  - travis_retry make ci_before_build
 
 # Commands you want to run that will verify your build.
 script:
-  - vendor/bin/php-cs-fixer fix --config=.php_cs --verbose --diff --dry-run
-  - vendor/bin/phpunit --coverage-clover tests/_resources/reports/clover.xml
+  - make ci_build
 
 after_script:
-# Submit coverage report to Coveralls servers, see .coveralls.yml
-  - travis_retry php vendor/bin/coveralls -v
+# Commands to be run after your environment runs.
+  - travis_retry make ci_after_build
 
 # allow_failures: Allow this build to fail under the specified environments.
 # fast_finish: If your build fails do not continue trying to build, just stop.

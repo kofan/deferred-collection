@@ -35,11 +35,11 @@ class InstantiateProcessorTest extends TestCase
         $instantiateProcessor = new InstantiateProcessor(DummyModel::class);
 
         foreach ($instantiateProcessor->process(self::MODELS_WITH_ID_AND_NAME) as $key => $model) {
-            $this->assertInstanceOf(DummyModel::class, $model);
-            $this->assertSame(self::MODELS_WITH_ID_AND_NAME[$index], $model->getArrayCopy());
+            $this->assertModelAtIndex($model, $index);
             $this->assertSame($index, $key);
             ++$index;
         }
+
         $this->assertSame($index, count(self::MODELS_WITH_ID_AND_NAME));
     }
 
@@ -49,11 +49,11 @@ class InstantiateProcessorTest extends TestCase
         $instantiateProcessor = new InstantiateProcessor(DummyModel::class, 'id');
 
         foreach ($instantiateProcessor->process(self::MODELS_WITH_ID_AND_NAME) as $key => $model) {
-            $this->assertInstanceOf(DummyModel::class, $model);
-            $this->assertSame(self::MODELS_WITH_ID_AND_NAME[$index], $model->getArrayCopy());
+            $this->assertModelAtIndex($model, $index);
             $this->assertSame($model->id, $key);
             ++$index;
         }
+
         $this->assertSame($index, count(self::MODELS_WITH_ID_AND_NAME));
     }
 
@@ -63,11 +63,16 @@ class InstantiateProcessorTest extends TestCase
         $instantiateProcessor = new InstantiateProcessor(DummyModel::class, 'getId');
 
         foreach ($instantiateProcessor->process(self::MODELS_WITH_ID_AND_NAME) as $key => $model) {
-            $this->assertInstanceOf(DummyModel::class, $model);
-            $this->assertSame(self::MODELS_WITH_ID_AND_NAME[$index], $model->getArrayCopy());
+            $this->assertModelAtIndex($model, $index);
             $this->assertSame($model->getId(), $key);
             ++$index;
         }
+
         $this->assertSame($index, count(self::MODELS_WITH_ID_AND_NAME));
+    }
+
+    private function assertModelAtIndex(DummyModel $model, int $index)
+    {
+        $this->assertSame(self::MODELS_WITH_ID_AND_NAME[$index], $model->getArrayCopy());
     }
 }

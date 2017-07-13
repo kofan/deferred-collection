@@ -11,7 +11,8 @@
     "phpunit/phpunit": "^6.2",
     "mockery/mockery": "dev-master",
     "friendsofphp/php-cs-fixer": "dev-master",
-    "etsy/phan": "dev-master"
+    "etsy/phan": "dev-master",
+    "sebastian/phpcpd": "^3.0"
   },
   "license": "MIT",
   "authors": [
