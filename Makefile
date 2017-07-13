@@ -65,7 +65,7 @@ before_commit: check phpunit
 
 # --- CI commands ---
 ci_before_build:
-	.phan/ast_install.sh
+	bin/ast_install.sh
 	composer self-update
 	$(MAKE) composer
 ci_build: check phpunit-coverage
