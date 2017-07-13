@@ -2,7 +2,7 @@ PHPLINT=./bin/phplint.sh
 PHPUNIT=./vendor/bin/phpunit
 PHPCPD=./vendor/bin/phpcpd
 PHPMD=./vendor/bin/phpmd
-PHPMETRICS=./vendor/bin/phpmetrics
+PHP_CS_FIXER=./vendor/bin/php-cs-fixer
 PHAN=./vendor/bin/phan
 TEST_REPORTS_DIR=./tests/_resources/reports
 
@@ -16,11 +16,11 @@ phplint:
 .PHONY: phplint
 
 phpcs-check:
-	php-cs-fixer fix --dry-run --diff --verbose
+	$(PHP_CS_FIXER) fix --dry-run --diff --verbose
 .PHONY: phpcs-check
 
 phpcs-fix:
-	php-cs-fixer fix
+	$(PHP_CS_FIXER) fix
 .PHONY: phpcs-fix
 
 # Phan doesn't work correctly with iterable types yet
@@ -60,6 +60,7 @@ coveralls:
 # --- Dev macros ---
 check: phplint phpcs-check phpcpd
 before_commit: check phpunit
+
 .PHONY: check before_commit
 
 # --- CI commands ---
