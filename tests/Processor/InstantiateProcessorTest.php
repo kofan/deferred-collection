@@ -71,7 +71,7 @@ class InstantiateProcessorTest extends TestCase
         $this->assertSame($index, count(self::MODELS_WITH_ID_AND_NAME));
     }
 
-    private function assertModelAtIndex(DummyModel $model, int $index)
+    private function assertModelAtIndex(DummyModel $model, int $index): void
     {
         $this->assertSame(self::MODELS_WITH_ID_AND_NAME[$index], $model->getArrayCopy());
     }
