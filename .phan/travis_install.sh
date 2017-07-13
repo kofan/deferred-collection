@@ -7,4 +7,5 @@ phpize
 make
 make install
 cd ..
+rm -rf php-ast
 echo "extension=ast.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
