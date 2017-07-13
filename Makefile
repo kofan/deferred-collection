@@ -1,5 +1,6 @@
 PHPLINT=./bin/phplint.sh
 PHPUNIT=./vendor/bin/phpunit
+PHPMD=./vendor/bin/phpmd
 PHPMETRICS=./vendor/bin/phpmetrics
 PHAN=./vendor/bin/phan
 TEST_REPORTS_DIR=./tests/_resources/reports
@@ -21,6 +22,7 @@ phpcs-fix:
 	php-cs-fixer fix
 .PHONY: phpcs-fix
 
+# Phan doesn't work correctly with iterable types yet
 phan:
 	$(PHAN)
 .PHONY: phan
@@ -40,13 +42,11 @@ phpunit-coverage:
 	--log-junit $(TEST_REPORTS_DIR)/phpunit-report.xml
 .PHONY: phpunit-coverage
 
-metrics: phpunit
-	$(PHPMETRICS) \
-	--report-html=$(TEST_REPORTS_DIR)/metrics \
-	--junit=$(TEST_REPORTS_DIR)/phpunit-report.xml \
-	--extenstions=php \
-	./src
-.PHONY: metrics
+# PHPMD doesn't work correctly with PHP 7.1 yet because of the PHP_Depend issue
+# https://github.com/pdepend/pdepend/issues/297
+phpmd:
+	$(PHPMD) src/,tests/ text phpmd.xml
+.PHONY: phpmd
 
-check: phplint phpcs-check phpunit phan
+check: phplint phpcs-check phpunit phpmd
 

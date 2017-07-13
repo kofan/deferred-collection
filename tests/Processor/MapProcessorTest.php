@@ -33,11 +33,10 @@ class MapProcessorTest extends TestCase
 
     public function testMapsTheValuesAndKeys(): void
     {
-        $mapProcessor = new MapProcessor(
+        $mapProcessor = new MapWithKeysProcessor(
             function ($value, $key) {
                 return [5 * $key, 10 * $value];
-            },
-            $mapKeys = true
+            }
         );
 
         $index = 0;

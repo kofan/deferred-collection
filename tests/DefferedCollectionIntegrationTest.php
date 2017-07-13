@@ -34,9 +34,9 @@ class DefferedCollectionIntegrationTest extends TestCase
         $collection = new DeferredCollection($letterOrds);
 
         $collection
-            ->map(function ($value, $key) {
+            ->mapWithKeys(function ($value, $key) {
                 return [$value, $key];
-            }, $mapKeys = true)
+            })
             ->filter(function ($value, $key) {
                 return ord($value) === $key;
             })
@@ -49,8 +49,8 @@ class DefferedCollectionIntegrationTest extends TestCase
 
     public function testCollectionWithMapAndInstantiate(): void
     {
-        $IDs = [101, 102, 103];
-        $collection = new DeferredCollection($IDs);
+        $ids = [101, 102, 103];
+        $collection = new DeferredCollection($ids);
 
         $collection
             ->map(function ($value) {
@@ -61,9 +61,9 @@ class DefferedCollectionIntegrationTest extends TestCase
         /** @var DummyModel[] $array */
         $array = $collection->toArray();
 
-        $this->assertSame($IDs[0], $array[0]->getId());
-        $this->assertSame($IDs[1], $array[1]->getId());
-        $this->assertSame($IDs[2], $array[2]->getId());
+        $this->assertSame($ids[0], $array[0]->getId());
+        $this->assertSame($ids[1], $array[1]->getId());
+        $this->assertSame($ids[2], $array[2]->getId());
     }
 
     public function testCollectionWithPluckPropertyAndMin(): void

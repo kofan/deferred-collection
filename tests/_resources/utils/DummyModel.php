@@ -8,9 +8,12 @@ use ArrayObject;
 
 class DummyModel extends ArrayObject
 {
-    public function __construct(array $input = [], int $flags = 0, string $iteratorClass = 'ArrayIterator')
+    /**
+     * @param array $input
+     */
+    public function __construct(array $input = [])
     {
-        parent::__construct($input, self::STD_PROP_LIST | self::ARRAY_AS_PROPS, $iteratorClass);
+        parent::__construct($input, self::STD_PROP_LIST | self::ARRAY_AS_PROPS);
     }
 
     /**

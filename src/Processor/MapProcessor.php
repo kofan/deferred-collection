@@ -9,17 +9,12 @@ class MapProcessor extends AbstractMultiValueProcessor
     /** @var callable */
     private $callback;
 
-    /** @var bool */
-    private $mapKeys;
-
     /**
      * @param callable $callback Mapping callback
-     * @param bool     $mapKeys
      */
-    public function __construct(callable $callback, bool $mapKeys = false)
+    public function __construct(callable $callback)
     {
         $this->callback = $callback;
-        $this->mapKeys = $mapKeys;
     }
 
     /**
@@ -41,13 +36,22 @@ class MapProcessor extends AbstractMultiValueProcessor
      */
     private function map($key, $value): array
     {
-        $mappedKey = $key;
-        $mappedValue = ($this->callback)($value, $key);
+        $mapped = ($this->callback)($value, $key);
 
-        if ($this->mapKeys) {
-            [$mappedKey, $mappedValue] = $mappedValue;
+        if ($this->shouldMapKeys()) {
+            [$mappedKey, $mappedValue] = $mapped;
+        } else {
+            [$mappedKey, $mappedValue] = [$key, $mapped];
         }
 
         return [$mappedKey, $mappedValue];
+    }
+
+    /**
+     * @return bool
+     */
+    protected function shouldMapKeys(): bool
+    {
+        return false;
     }
 }

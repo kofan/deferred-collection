@@ -13,7 +13,8 @@ use RuntimeException;
 use Traversable;
 
 /**
- * @method DeferredCollection map(callable $callback, bool $mapKeys = false)
+ * @method DeferredCollection map(callable $callback)
+ * @method DeferredCollection mapWithKeys(callable $callback)
  * @method DeferredCollection filter(callable $predicate)
  * @method DeferredCollection reduce(callable $callback, mixed $initialValue = null)
  * @method DeferredCollection instantiate(string $modelClassName, string $indexBy = '')
@@ -168,6 +169,7 @@ class DeferredCollection implements
         foreach ($this->processors as $processor) {
             $iterable = $processor->process($iterable);
         }
+
         return $iterable;
     }
 

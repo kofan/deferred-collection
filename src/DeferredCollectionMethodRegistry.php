@@ -7,6 +7,7 @@ namespace DeferredCollection;
 use DeferredCollection\Processor\FilterProcessor;
 use DeferredCollection\Processor\InstantiateProcessor;
 use DeferredCollection\Processor\MapProcessor;
+use DeferredCollection\Processor\MapWithKeysProcessor;
 use DeferredCollection\Processor\MatchPropertyProcessor;
 use DeferredCollection\Processor\MaxProcessor;
 use DeferredCollection\Processor\MinProcessor;
@@ -26,6 +27,7 @@ abstract class DeferredCollectionMethodRegistry
      */
     private static $methodNameToProcessorClass = [
         'map' => MapProcessor::class,
+        'mapWithKeys' => MapWithKeysProcessor::class,
         'filter' => FilterProcessor::class,
         'reduce' => ReduceProcessor::class,
         'instantiate' => InstantiateProcessor::class,

@@ -7,10 +7,10 @@
     "symfony/property-access": "^3.3"
   },
   "require-dev": {
+    "phpmd/phpmd" : "@stable",
     "phpunit/phpunit": "^6.2",
     "mockery/mockery": "dev-master",
     "friendsofphp/php-cs-fixer": "dev-master",
-    "phpmetrics/phpmetrics": "^2.2",
     "etsy/phan": "dev-master"
   },
   "license": "MIT",
