@@ -1,9 +1,12 @@
 # Deferred Collection - PHP collections with deferred data processing
 
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D7.1-blue.svg)](https://php.net/)
+[![Latest Stable Version](https://poser.pugx.org/kofan/deferred-collection/v/stable)](https://packagist.org/packages/kofan/deferred-collection)
 [![Build Status](https://travis-ci.org/kofan/deferred-collection.svg?branch=master)](https://travis-ci.org/kofan/deferred-collection)
 [![Coverage Status](https://coveralls.io/repos/kofan/deferred-collection/badge.svg?branch=master&service=github)](https://coveralls.io/github/kofan/deferred-collection?branch=master)
 [![StyleCI](https://styleci.io/repos/95515563/shield?style=flat&branch=master)](https://styleci.io/repos/95515563)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![composer.lock](https://poser.pugx.org/kofan/deferred-collection/composerlock)](https://packagist.org/packages/kofan/deferred-collection)
 
 ## Introduction and motivation
 
